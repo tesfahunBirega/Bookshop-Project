@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model clients {
+  id                  Int                   @id @default(autoincrement())
+  name                String?               @db.VarChar(30)
+  logo                String?               @db.VarChar(60)
+  website             String?               @db.VarChar(30)
+  email               String?               @db.VarChar(30)
+  contact_no          String?               @db.VarChar(30)
+  adress              String?               @db.VarChar(30)
+  created_by          String?               @db.VarChar(20)
+  updated_by          String?               @db.VarChar(20)
+  created_at          DateTime?             @db.Timestamp(0)
+  updated_at          DateTime?             @db.Timestamp(0)
+  is_deleted          Boolean?
+  representative_info representative_info[]
+
+  @@unique([id, website], map: "id")
+  @@unique([id, email], map: "id_2")
+  @@unique([id, contact_no], map: "id_3")
+}
+
+model project {
+  id                     Int                      @id @default(autoincrement())
+  name                   String?                  @db.VarChar(30)
+  description            String?                  @db.VarChar(1000)
+  solution_id            Int?
+  sector_id              Int?
+  representative_id      Int?
+  vendor_id              Int?
+  created_by             String?                  @db.VarChar(20)
+  updated_by             String?                  @db.VarChar(20)
+  created_at             DateTime?                @db.Timestamp(0)
+  updated_at             DateTime?                @db.Timestamp(0)
+  is_deleted             Boolean?                 @default(false)
+  sector                 sector?                   @relation(fields: [sector_id], references: [id], onDelete: Cascade, map: "Fk_project_sector")
+  representative_info    representative_info?     @relation(fields: [representative_id], references: [id], onDelete: Cascade, map: "project_ibfk_2")
+  project_representative project_representative[]
+  project_solution       project_solution[]
+  project_vendor         project_vendor[]
+
+  @@index([sector_id], map: "Fk_project_sector")
+  @@index([representative_id], map: "representative_id")
+  @@index([solution_id], map: "solution_id")
+  @@index([vendor_id], map: "vendor_id")
+}
+
+model project_representative {
+  id                  Int                 @id @default(autoincrement())
+  project_id          Int
+  representative_id   Int
+  created_by          String              @db.VarChar(20)
+  updated_by          String              @db.VarChar(20)
+  project             project             @relation(fields: [project_id], references: [id], onDelete: Cascade, map: "FK_project_representative")
+  representative_info representative_info @relation(fields: [representative_id], references: [id], onDelete: Cascade, map: "FK_project_representative1")
+
+  @@index([project_id], map: "FK_project_representative")
+  @@index([representative_id], map: "FK_project_representative1")
+}
+
+model project_solution {
+  id          Int       @id @default(autoincrement())
+  project_id  Int
+  solution_id Int
+  created_by  String    @db.VarChar(20)
+  updated_by  String    @db.VarChar(20)
+  project     project   @relation(fields: [project_id], references: [id], onDelete: Cascade, map: "Fk_project_solution")
+  solutions   solutions @relation(fields: [solution_id], references: [id], onUpdate: Restrict, map: "Fk_project_solution1")
+
+  @@index([project_id], map: "Fk_project_solution")
+  @@index([solution_id], map: "Fk_project_solution1")
+}
+
+model project_vendor {
+  id         Int     @id @default(autoincrement())
+  project_id Int
+  vendor_id  Int
+  created_by Int
+  updated_by Int
+  project    project @relation(fields: [project_id], references: [id], onDelete: Cascade, map: "FK_project_vendor")
+  vendors    vendors @relation(fields: [vendor_id], references: [id], onDelete: Cascade, map: "FK_project_vendor1")
+
+  @@index([project_id], map: "FK_project_vendor")
+  @@index([vendor_id], map: "FK_project_vendor1")
+}
+
+model representative_info {
+  id                     Int                      @id @default(autoincrement())
+  name                   String?                  @db.VarChar(45)
+  email                  String?                  @unique(map: "email") @db.VarChar(45)
+  address                String?                  @db.VarChar(45)
+  contact_1              String?                  @unique(map: "contact_1") @db.VarChar(45)
+  contact_2              String?                  @unique(map: "contact_2") @db.VarChar(30)
+  country                String?                  @db.VarChar(20)
+  created_by             String?                  @db.VarChar(20)
+  updated_by             String?                  @db.VarChar(20)
+  state                  String?                  @db.VarChar(20)
+  client_or_vendor       Boolean?
+  client_id              Int?
+  vendor_id              Int?
+  created_at             DateTime?                @db.Timestamp(0)
+  updated_at             DateTime?                @db.Timestamp(0)
+  is_deleted             Boolean?                  @default(false)
+  clients                clients?                 @relation(fields: [client_id], references: [id], onDelete: Cascade, map: "Fk_client_representatives")
+  vendors                vendors?                 @relation(fields: [vendor_id], references: [id], onDelete: Cascade, map: "Fk_vendor_representatives")
+  project                project[]
+  project_representative project_representative[]
+
+  @@index([client_id], map: "Fk_client_representatives")
+  @@index([vendor_id], map: "Fk_vendor_representatives")
+}
+
+model sector {
+  id         Int       @id @default(autoincrement())
+  name       String?   @db.VarChar(30)
+  created_by String    @db.VarChar(20)
+  updated_by String    @db.VarChar(20)
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  project    project[]
+}
+
+model solutions {
+  id               Int                @id @default(autoincrement())
+  name             String             @db.VarChar(40)
+  logo             String?            @db.VarChar(40)
+  email            String?            @unique(map: "email") @db.VarChar(40)
+  contact_no       String?            @db.VarChar(40)
+  created_by       String             @db.VarChar(20)
+  updated_by       String             @db.VarChar(20)
+  created_at       DateTime           @default(now()) @db.Timestamp(0)
+  updated_at       DateTime?          @db.Timestamp(0)
+  is_deleted       Boolean            @default(false)
+  project_solution project_solution[]
+}
+
+model users {
+  id         Int     @id @default(autoincrement())
+  name       String  @db.VarChar(30)
+  email      String  @db.VarChar(20)
+  password   String  @db.VarChar(20)
+  isAdmin    Boolean
+  created_at String  @db.VarChar(20)
+  updated_at String  @db.VarChar(20)
+  created_by String  @db.VarChar(20)
+  updated_by String  @db.VarChar(20)
+}
+
+model vendors {
+  id                  Int                   @id @default(autoincrement())
+  name                String                @db.VarChar(45)
+  logo                String?               @db.VarChar(45)
+  website             String?               @unique(map: "website") @db.VarChar(45)
+  email               String?               @unique(map: "email") @db.VarChar(30)
+  contact_phone       String?               @unique(map: "contact_phone") @db.VarChar(30)
+  address             String?               @db.VarChar(30)
+  country             String?               @db.VarChar(20)
+  state               String?               @db.VarChar(30)
+  created_at          DateTime?             @db.Timestamp(0)
+  update_at           DateTime?             @db.Timestamp(0)
+  created_by          String                @db.VarChar(30)
+  updated_by          String                @db.VarChar(30)
+  is_deleted          Boolean?              @default(false)
+  project_vendor      project_vendor[]
+  representative_info representative_info[]
+}
