@@ -1,13 +1,13 @@
 const express = require("express");
 // const connection = require("../connection");
-const projectRoute = express.Router();
+const bookRoute = express.Router();
 
 const {
-  createProject,
-  allProjects,
-  oneProject
+  createBook,
+  allBook,
+  oneBook
  
-} = require("../controllers/project.controller");
+} = require("../controllers/book.controller");
 
 /**
  * @swagger
@@ -16,13 +16,13 @@ const {
  *     summary: Retrieve a list of JSONPlaceholder users.
  *     description: Retrieve a list of users from JSONPlaceholder.
  */
-projectRoute.post("/create", createProject);
-projectRoute.get("/all-projects", allProjects);
-projectRoute.get("/one-project/:id", oneProject);
+bookRoute.post("/create", createBook);
+bookRoute.get("/all-projects", allBook);
+bookRoute.get("/one-project/:id", oneBook);
 
-projectRoute.get("/read", (req, res) => {
+bookRoute.get("/read", (req, res) => {
   const baseUrl = req.baseUrl;
   res.send("<h1>This is Projectttttt read page</h1>");
 });
 
-module.exports = projectRoute;
+module.exports = bookRoute;

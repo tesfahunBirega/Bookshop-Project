@@ -4,7 +4,7 @@ const { request } = require("express");
 
 const prisma = new PrismaClient();
 
-const allUsers = asyncHandler(async (req, res) => {
+const allCustomer = asyncHandler(async (req, res) => {
   try {
     const users = await prisma.users.findMany();
     if (users) {
@@ -23,7 +23,7 @@ const allUsers = asyncHandler(async (req, res) => {
   }
 });
 
-const oneUser = asyncHandler(async (req, res) => {
+const oneCustomer = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
     const users = await prisma.users.findUniqueOrThrow({
@@ -53,7 +53,7 @@ const oneUser = asyncHandler(async (req, res) => {
  * @type POST
  */
 
-const createUser = asyncHandler(async (req, res) => {
+const createCustomer = asyncHandler(async (req, res) => {
   try {
     let { name, email, password } = req.body;
 
@@ -81,7 +81,7 @@ const createUser = asyncHandler(async (req, res) => {
   }
 });
 
-const updateUser = asyncHandler(async (req, res) => {
+const updateCustomer = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
     let { name, email, password } = req.body;
@@ -111,7 +111,7 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
-const deleteUser = asyncHandler(async (req, res) => {
+const deleteCustomer = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const user = await prisma.users.delete({
     where: {
@@ -129,9 +129,9 @@ const deleteUser = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  createUser,
-  oneUser,
-  allUsers,
-  updateUser,
-  deleteUser,
+  createCustomer,
+  oneCustomer,
+  allCustomer,
+  updateCustomer,
+  deleteCustomer,
 };

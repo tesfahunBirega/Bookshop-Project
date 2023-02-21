@@ -11,13 +11,10 @@ app.get("/", (req, res) => {
   res.send("<h1>This is Advanced CRUD Home page</h1>");
 });
 
-app.use("/user", require("./routes/users.routes"));
-app.use("/client", require("./routes/clients.routes"));
-app.use("/project", require("./routes/projects.routes"));
-app.use("/representative", require("./routes/representatives.routes"));
-// app.use("/sector", require("./routes/sectors.routes"));
-// app.use("/solution", require("./routes/solutions.routes"));
-// app.use("/vendor", require("./routes/vendors.routes"));
+app.use("/customers", require("./routes/customers.routes"));
+app.use("/books", require("./routes/books.routes"));
+app.use("/author", require("./routes/authors.routes"));
+
 
 
 module.exports = app;

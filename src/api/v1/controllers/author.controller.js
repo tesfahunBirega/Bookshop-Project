@@ -4,7 +4,7 @@ const { request } = require("express");
 
 const prisma = new PrismaClient();
 
-const createRepresentative = asyncHandler(async (req, res) => {
+const createAuthor = asyncHandler(async (req, res) => {
   try {
     let { name, description } = req.body;
 
@@ -32,7 +32,7 @@ const createRepresentative = asyncHandler(async (req, res) => {
   }
 });
 
-const allRepresentatives = asyncHandler(async (req, res) => {
+const allAuthor = asyncHandler(async (req, res) => {
     try {
       const representative = await prisma.representative_info.findMany();
       if (project) {
@@ -52,7 +52,7 @@ const allRepresentatives = asyncHandler(async (req, res) => {
   });
 
   
-const oneRepresentative = asyncHandler(async (req, res) => {
+const oneAuthor = asyncHandler(async (req, res) => {
     try {
       const { id } = req.params;
       const representative = await prisma.representative_info.findUniqueOrThrow({
@@ -78,9 +78,8 @@ const oneRepresentative = asyncHandler(async (req, res) => {
   
 
 module.exports = {
-  createRepresentative,
-  oneRepresentative,
-  allRepresentatives,
-//   updateUser,
-//   deleteUser,
+  createAuthor,
+  oneAuthor,
+  allAuthor,
+
 };
