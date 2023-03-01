@@ -6,22 +6,23 @@ const prisma = new PrismaClient();
 
 const createAuthor = asyncHandler(async (req, res) => {
   try {
-    let { name, description } = req.body;
+    let { firstName, lastName } = req.body;
 
-    const representative = await prisma.representative_info.create({
+    const Author = await prisma.authId.create({
       data: {
-        name: name,
-        description: description,
+        firstName: firstName,
+        lastName: lastName,
+
 
       },
     });
 
-    if (representative) {
+    if (Author) {
       return res.status(201).json({
         success: true,
         status: 201,
-        message: "project created successfully!!!",
-        data: representative,
+        message: "Author created successfully!!!",
+        data: Author,
       });
     }
   } catch (error) {
@@ -34,13 +35,13 @@ const createAuthor = asyncHandler(async (req, res) => {
 
 const allAuthor = asyncHandler(async (req, res) => {
     try {
-      const representative = await prisma.representative_info.findMany();
-      if (project) {
+      const Author = await prisma.authId.findMany();
+      if (Author) {
         return res.status(201).json({
           success: true,
           status: 201,
-          message: `All Project find successfully!!!`,
-          data: representative,
+          message: `All Author find successfully!!!`,
+          data: Author,
         });
       }
     } catch (error) {
@@ -55,17 +56,17 @@ const allAuthor = asyncHandler(async (req, res) => {
 const oneAuthor = asyncHandler(async (req, res) => {
     try {
       const { id } = req.params;
-      const representative = await prisma.representative_info.findUniqueOrThrow({
+      const Author = await prisma.authId.findUniqueOrThrow({
         where: {
           id: Number(id),
         },
       });
-      if (representative) {
+      if (Author) {
         return res.status(201).json({
           success: true,
           status: 201,
-          message: `${project.name} find successfully!!!`,
-          data: representative,
+          message: `${Author.name} find successfully!!!`,
+          data: Author,
         });
       }
     } catch (error) {

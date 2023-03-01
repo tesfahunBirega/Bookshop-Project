@@ -6,13 +6,13 @@ const prisma = new PrismaClient();
 
 const allCustomer = asyncHandler(async (req, res) => {
   try {
-    const users = await prisma.users.findMany();
-    if (users) {
+    const customers = await prisma.customers.findMany();
+    if (customers) {
       return res.status(201).json({
         success: true,
         status: 201,
-        message: `All Users find successfully!!!`,
-        data: users,
+        message: `All customers find successfully!!!`,
+        data: customers,
       });
     }
   } catch (error) {
@@ -26,17 +26,17 @@ const allCustomer = asyncHandler(async (req, res) => {
 const oneCustomer = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
-    const users = await prisma.users.findUniqueOrThrow({
+    const customers = await prisma.customers.findUniqueOrThrow({
       where: {
         id: Number(id),
       },
     });
-    if (users) {
+    if (customers) {
       return res.status(201).json({
         success: true,
         status: 201,
-        message: `${users.name} find successfully!!!`,
-        data: users,
+        message: `${customers.name} find successfully!!!`,
+        data: customers,
       });
     }
   } catch (error) {
@@ -57,7 +57,7 @@ const createCustomer = asyncHandler(async (req, res) => {
   try {
     let { name, email, password } = req.body;
 
-    const user = await prisma.users.create({
+    const customers = await prisma.customers.create({
       data: {
         name: name,
         email: email,
@@ -65,12 +65,12 @@ const createCustomer = asyncHandler(async (req, res) => {
       },
     });
 
-    if (user) {
+    if (customers) {
       return res.status(201).json({
         success: true,
         status: 201,
-        message: "User created successfully!!!",
-        data: user,
+        message: "customers created successfully!!!",
+        data: customers,
       });
     }
   } catch (error) {
@@ -85,7 +85,7 @@ const updateCustomer = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
     let { name, email, password } = req.body;
-    const user = await prisma.users.update({
+    const customers = await prisma.uscustomersers.update({
       where: {
         id: Number(id),
       },
@@ -95,12 +95,12 @@ const updateCustomer = asyncHandler(async (req, res) => {
         password: password,
       },
     });
-    if (user) {
+    if (customers) {
       return res.status(201).json({
         success: true,
         status: 201,
-        message: "User updated successfully!!!",
-        data: user,
+        message: "customers updated successfully!!!",
+        data: customers,
       });
     }
   } catch (error) {
@@ -113,17 +113,17 @@ const updateCustomer = asyncHandler(async (req, res) => {
 
 const deleteCustomer = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const user = await prisma.users.delete({
+  const customers = await prisma.customers.delete({
     where: {
       id: Number(id),
     },
   });
-  if (user) {
+  if (customers) {
     return res.status(201).json({
       success: true,
       status: 201,
-      message: `${user.name} deleted successfully!!!`,
-      data: user,
+      message: `${customers.name} deleted successfully!!!`,
+      data: customers,
     });
   }
 });

@@ -17,11 +17,11 @@ const {
  *     description: Retrieve a list of users from JSONPlaceholder.
  */
 authorRoute.post("/create", createAuthor);
- authorRoute.get("/all-projects", allAuthor);
- authorRoute.get("/one-project/:id", oneAuthor);
+ authorRoute.get("/", allAuthor);
+ authorRoute.get("/:id", oneAuthor);
  authorRoute.get("/read", (req, res) => {
   const baseUrl = req.baseUrl;
-  res.send("<h1>This is representativessssssssss read page</h1>");
+  res.send("<h1>This is Authors read page</h1>");
 });
 
 module.exports = authorRoute;

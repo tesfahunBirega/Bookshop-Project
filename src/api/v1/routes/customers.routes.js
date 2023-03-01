@@ -18,8 +18,8 @@ const {
  *     description: Retrieve a list of users from JSONPlaceholder.
  */
 customerRoute.post("/create", createCustomer);
-customerRoute.get("/all-users", allCustomer);
-customerRoute.get("/one-user/:id", oneCustomer);
+customerRoute.get("/", allCustomer);
+customerRoute.get("/:id", oneCustomer);
 customerRoute.put("/update/:id", updateCustomer);
 customerRoute.delete("/delete/:id", deleteCustomer);
 

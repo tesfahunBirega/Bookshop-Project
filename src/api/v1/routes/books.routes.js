@@ -5,8 +5,8 @@ const bookRoute = express.Router();
 const {
   createBook,
   allBook,
-  oneBook
- 
+  oneBook,
+  oneBookISBN
 } = require("../controllers/book.controller");
 
 /**
@@ -17,12 +17,14 @@ const {
  *     description: Retrieve a list of users from JSONPlaceholder.
  */
 bookRoute.post("/create", createBook);
-bookRoute.get("/all-projects", allBook);
-bookRoute.get("/one-project/:id", oneBook);
+bookRoute.get("/", allBook);
+bookRoute.get("/ISBN", oneBookISBN);
+// bookRoute.post("/:author", searchbyauthor);
+bookRoute.get("/:id", oneBook);
 
 bookRoute.get("/read", (req, res) => {
   const baseUrl = req.baseUrl;
-  res.send("<h1>This is Projectttttt read page</h1>");
+  res.send("<h1>This is books read page</h1>");
 });
 
 module.exports = bookRoute;
