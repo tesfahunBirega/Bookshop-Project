@@ -14,45 +14,14 @@ model users {
   password String? @db.VarChar(50)
 }
 
-model customers {
-  id              Int               @id
-  name            String?           @db.VarChar(50)
-  website         String?           @db.VarChar(50)
-  email           String?           @db.VarChar(50)
-  phoneNumber     String?           @db.VarChar(50)
-  adress          String?           @db.VarChar(50)
-  sectorId        String?           @db.VarChar(50)
-  description     String?           @db.VarChar(50)
-  representatives representatives[]
+model books {
+  id              Int                @id
+  name            String?            @db.VarChar(50)
+  ISBN         String?               @db.VarChar(50)
+  author           String?           @db.VarChar(50)
+  title     String?                  @db.VarChar(50)
+  review          String?            @db.VarChar(50)
+  sectorId        String?            @db.VarChar(50)
+  description     String?            @db.VarChar(50)
 }
 
-model representatives {
-  id          Int        @id
-  name        String?    @db.VarChar(50)
-  position    String?    @db.VarChar(50)
-  city        String?    @db.VarChar(50)
-  adress      String?    @db.VarChar(50)
-  emailAdress String?    @db.VarChar(50)
-  phoneNumber String?    @db.VarChar(50)
-  description String?    @db.VarChar(50)
-  customerId  Int?
-  vendorId    Int?
-  customers   customers? @relation(fields: [customerId], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "FK_representatives_customers")
-  vendors     vendors?   @relation(fields: [vendorId], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "FK_representatives_vendors")
-
-  @@index([customerId], map: "IXFK_representatives_customers")
-  @@index([vendorId], map: "IXFK_representatives_vendors")
-}
-
-model vendors {
-  id              Int               @id
-  name            String?           @db.VarChar(50)
-  website         String?           @db.VarChar(50)
-  email           String?           @db.VarChar(50)
-  phoneNumber     String?           @db.VarChar(50)
-  adress          String?           @db.VarChar(50)
-  country         String?           @db.VarChar(50)
-  city            String?           @db.VarChar(50)
-  description     String?           @db.VarChar(50)
-  representatives representatives[]
-}

@@ -1,5 +1,5 @@
 {
-  "name": "express-advanced-folder-structure",
+  "name": "IE-SOLUTION",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,10 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
-  "author": "Abraham Dulla",
+  "author": "IE-Solution-Profile",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^4.6.0",
+    "@prisma/client": "^4.6.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
