@@ -15,13 +15,11 @@ model users {
 }
 
 model books {
-  id              Int                @id
+  id              Int                @id @default(autoincrement())
   name            String?            @db.VarChar(50)
-  ISBN         String?               @db.VarChar(50)
+  ISBN         Int?               
   author           String?           @db.VarChar(50)
-  title     String?                  @db.VarChar(50)
+  title            String?                  @db.VarChar(50)
   review          String?            @db.VarChar(50)
-  sectorId        String?            @db.VarChar(50)
-  description     String?            @db.VarChar(50)
 }
 

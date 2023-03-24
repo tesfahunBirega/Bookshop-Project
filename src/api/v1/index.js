@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
   res.send("<h1>This is Advanced CRUD Home page</h1>");
 });
 
-app.use("/user", require("./routes/users.routes"));
+app.use("/book", require("./routes/booksroutes"));
 // app.use("/client", require("./routes/clients.routes"));
 // app.use("/project", require("./routes/projects.routes"));
 // app.use("/representative", require("./routes/representatives.routes"));
